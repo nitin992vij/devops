@@ -1,0 +1,15 @@
+- hosts: web
+  vars:
+    list1: ['Template iterate','Template loop','Template item']
+  tasks:
+    - name: Create demo user
+      user:
+        name: demo
+        create_home: yes
+        state: present
+      
+    - name: Ansible template loop example.
+      template:
+        src: templates_example2.j2
+        dest: /home/demo/output.txt
+        mode: 0777

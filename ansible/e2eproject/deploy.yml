@@ -1,0 +1,22 @@
+- name: Create tomcat AWS infrastucture
+  hosts: localhost
+  connection: local
+  roles:
+    - tomcat_aws
+
+
+- name: Deploy tomcat service
+  hosts: webservers
+  become: yes
+  remote_user: ec2-user
+  become_method: sudo
+  environment:
+    ANSIBLE_CONFIG: "ansible.cfg"
+  roles:
+    - tomcat
+
+  tasks:
+  
+  - name: start tomcat service
+    become: true
+    service: name=tomcat state=started 
